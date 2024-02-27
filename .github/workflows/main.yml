@@ -142,9 +142,15 @@ jobs:
 
     - name: Build Docker image Frontend
       run: docker build -t power_pipeline_frontend:latest ./frontend
+      
+    - name: Run Frontend Container
+      run: docker run -d -p 3000:3000 power_pipeline_frontend:latest
 
     - name: Build Docker image Backend
       run: docker build -t power_pipeline_backend:latest ./backend
-
+      
+    - name: Run Frontend Container
+      run: docker run -d -p 5000:5000 power_pipeline_frontend:latest
+      
     - name: Shows Docker Images
       run: docker images
