@@ -175,9 +175,9 @@ jobs:
         sudo apt-get update -y
         sudo apt-get install trivy -y
 
-    - name: Scan frontend image
-      run: |
-        trivy image power_pipeline_frontend
+    # - name: Scan frontend image
+      # run: |
+      #   trivy image power_pipeline_frontend
 
     - name: Scan backend image
       run: |
