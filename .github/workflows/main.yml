@@ -182,8 +182,8 @@ jobs:
       # run: |
       #   trivy image power_pipeline_frontend:latest
 
-    - name: Pull backend Docker image
-      run: docker pull power_pipeline_backend:latest
+    # - name: Pull backend Docker image
+    #   run: docker pull power_pipeline_backend:latest
 
     - name: Scan backend image
       run: |
