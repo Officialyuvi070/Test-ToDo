@@ -47,7 +47,7 @@ jobs:
   #     #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 
-  Build:
+  Build_with_NPM:
     runs-on: ubuntu-latest
    # needs: ["SonarQube"]
     steps:
@@ -86,7 +86,7 @@ jobs:
 
   Unit_Testing:
     runs-on: ubuntu-latest
-    # needs: ["Build"]
+    # needs: ["Build_with_NPM"]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -130,6 +130,7 @@ jobs:
 
   Build_Docker_Image_And_Trivy_Scan:
     runs-on: ubuntu-latest
+    # needs: ["Functional_Testing"]
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
