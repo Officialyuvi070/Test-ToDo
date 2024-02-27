@@ -1,4 +1,4 @@
-name: To-Do Pipeline.
+name: To-Do Pipeline
 on:
   push
 
@@ -149,8 +149,11 @@ jobs:
     - name: Build Docker image Backend
       run: docker build -t power_pipeline_backend:latest ./backend
       
-    - name: Run Frontend Container
+    - name: Run Backend Container
       run: docker run -d -p 5000:5000 power_pipeline_frontend:latest
       
     - name: Shows Docker Images
       run: docker images
+
+    - name: Running Container
+      run: docker ps
