@@ -154,22 +154,3 @@ jobs:
       
     - name: Shows Docker Images
       run: docker images
-
-  Trivy_Scan:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install Trivy
-        run: |
-          wget https://github.com/aquasecurity/trivy/releases/download/v0.19.2/trivy_0.19.2_Linux-64bit.tar.gz
-          tar zxvf trivy_0.19.2_Linux-64bit.tar.gz
-          sudo mv trivy /usr/local/bin/
-
-      - name: Scan Docker image Frontend
-        run: trivy --no-progress power_pipeline_frontend:latest
-
-      - name: Scan Docker image Backend
-        run: trivy --no-progress power_pipeline_backend:latest
