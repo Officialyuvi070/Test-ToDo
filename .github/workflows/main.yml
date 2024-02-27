@@ -157,3 +157,6 @@ jobs:
 
     - name: Running Container
       run: docker ps
+
+    - name: Stops Container
+      run: docker ps -a
