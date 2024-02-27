@@ -165,9 +165,10 @@ jobs:
     
       run: |
         curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
-
-    - name: Check Trivy Version
-      run: trivy --version
+        trivy --version
+        
+    # - name: Check Trivy Version
+    #   run: trivy --version
         
     - name: Scan frontend image
       run: |
