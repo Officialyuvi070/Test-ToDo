@@ -175,11 +175,16 @@ jobs:
         sudo apt-get update -y
         sudo apt-get install trivy -y
         
-
+    # - name: Pull frontend Docker image
+    #   run: docker pull power_pipeline_frontend:latest
+      
     # - name: Scan frontend image
       # run: |
-      #   trivy image power_pipeline_frontend
+      #   trivy image power_pipeline_frontend:latest
+
+    - name: Pull backend Docker image
+      run: docker pull power_pipeline_backend:latest
 
     - name: Scan backend image
       run: |
-        trivy image power_pipeline_backend
+        trivy image power_pipeline_backend:latest
