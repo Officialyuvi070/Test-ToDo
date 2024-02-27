@@ -6,6 +6,8 @@ COPY . .
 
 RUN npm i
 
+RUN chmod +x /path/to/vite
+
 EXPOSE 3000
 
 
