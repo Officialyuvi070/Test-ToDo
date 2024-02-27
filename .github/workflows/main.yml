@@ -155,16 +155,16 @@ jobs:
     - name: Shows Docker Images
       run: docker images
 
-  # trivy_scan:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Checkout code
-  #     uses: actions/checkout@v2
+  trivy_scan:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-  #   - name: Install Trivy
+    - name: Install Trivy
     
-  #     run: |
-  #       curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+      run: |
+        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
         
   #   - name: Scan frontend image
   #     run: |
