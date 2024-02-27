@@ -169,9 +169,9 @@ jobs:
     - name: Check Trivy Version
       run: trivy --version
         
-  #   - name: Scan frontend image
-  #     run: |
-  #       trivy image power_pipeline_frontend:latest
+    - name: Scan frontend image
+      run: |
+        trivy image power_pipeline_frontend:latest
 
   #   - name: Scan backend image
   #     run: |
