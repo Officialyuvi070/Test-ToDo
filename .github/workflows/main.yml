@@ -155,36 +155,17 @@ jobs:
     - name: Shows Docker Images
       run: docker images
 
-  trivy_scan:
+  trivy-scan:
     runs-on: ubuntu-latest
+ 
     steps:
-    - name: Checkout code
+    - name: Checkout Repository
       uses: actions/checkout@v2
-
+ 
     - name: Install Trivy
-    
-      # run: |
-      #   curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
-      #   docker pull power_pipeline_frontend
-      #   docker pull power_pipeline_backend
       run: |
-        sudo apt-get update
-        sudo apt-get install wget apt-transport-https gnupg lsb-release -y
-        wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
-        echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
-        sudo apt-get update -y
-        sudo apt-get install trivy -y
-        
-    # - name: Pull frontend Docker image
-    #   run: docker pull power_pipeline_frontend:latest
-      
-    # - name: Scan frontend image
-      # run: |
-      #   trivy image power_pipeline_frontend:latest
-
-    # - name: Pull backend Docker image
-    #   run: docker pull power_pipeline_backend:latest
-
-    - name: Scan backend image
-      run: |
-        trivy image power_pipeline_backend:latest
+        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+        docker pull power_pipeline_frontend:latest
+ 
+    - name: Scan Docker Image with Trivy
+      run: trivy power_pipeline_frontend:latest
