@@ -141,7 +141,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build Docker image
-      run: docker build -t power_pipeline:latest ./frontend
+      run: docker build -t power_pipeline_frontend:latest ./frontend
 
     - name: Shows Docker Images
       run: docker images
