@@ -128,7 +128,7 @@ jobs:
           cd Fucntional-Testing/demo
           mvn test
 
-  Build_Docker_Image:
+  Build_Docker_Image_And_Trivy_Scan:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
