@@ -140,8 +140,11 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build Docker image
+    - name: Build Docker image Frontend
       run: docker build -t power_pipeline_frontend:latest ./frontend
+
+    - name: Build Docker image Backend
+      run: docker build -t power_pipeline_backend:latest ./backend
 
     - name: Shows Docker Images
       run: docker images
