@@ -154,12 +154,3 @@ jobs:
       
     - name: Shows Docker Images
       run: docker images
-
-    - name: Running Container
-      run: docker ps
-
-    - name: Stops Container
-      run: docker ps -a
-
-    - name: check docker logs
-      run: docker logs frontend_cont
