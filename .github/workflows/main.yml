@@ -155,12 +155,6 @@ jobs:
     - name: Shows Docker Images
       run: docker images
 
-  trivy_scan:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
     - name: Install Trivy
     
       run: |
