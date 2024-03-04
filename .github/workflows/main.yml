@@ -150,7 +150,7 @@ jobs:
     - name: Shows Docker Images
       run: docker images
 
-  trivy-scan:
+  Trivy_Scan_Images:
     runs-on: ubuntu-latest
     needs: ["Build_Docker_Images"]
     steps:
@@ -160,8 +160,7 @@ jobs:
     - name: Install Trivy
       run: |
         curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
-        docker pull your-image-name:tag
- 
+
     - name: Scan frontend image
       run: |
         trivy image power_pipeline_frontend:latest
