@@ -147,38 +147,35 @@ jobs:
     - name: Build Docker image Backend
       run: docker build -t power_pipeline_backend:latest ./backend
       
-    - name: Save Docker Images List
-      id: save-docker-images
-      run: |
-        echo "Saving Docker images list..."
-        docker images > docker_images_list.txt
-        echo "::set-output name=docker-images-list::docker_images_list.txt"
+    - name: Shows Docker Images
+      run: docker images
 
-    - name: Upload Docker Images List as Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: docker-images-list
-        path: ${{ steps.save-docker-images.outputs.docker-images-list }}
+    - name: Save Docker images
+      run: |
+          docker save -o frontend_image.tar power_pipeline_frontend:latest
+          docker save -o backend_image.tar power_pipeline_backend:latest
 
   Trivy_Scan_Images:
     needs: ["Build_Docker_Images"]
     runs-on: ubuntu-latest
     steps:
-    - name: Download Docker Images List Artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: docker-images-list
-        path: docker_images_list
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Install Trivy
-      run: |
-        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
-        trivy --version
-        
-    - name: Scan frontend image
-      run: |
-        trivy image power_pipeline_frontend:latest
+      - name: Load Docker images
+        run: |
+          docker load -i frontend_image.tar
+          docker load -i backend_image.tar
 
-    - name: Scan backend image
-      run: |
-        trivy image power_pipeline_backend:latest
+      - name: Install Trivy
+        run: |
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+          trivy --version
+
+      - name: Scan frontend image
+        run: |
+          trivy image power_pipeline_frontend:latest
+
+      - name: Scan backend image
+        run: |
+          trivy image power_pipeline_backend:latest
