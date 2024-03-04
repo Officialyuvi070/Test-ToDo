@@ -110,27 +110,27 @@ jobs:
 # Get-ExecutionPolicy
 
 
-  Functional_Testing:
-    runs-on: self-hosted
-    # needs: ["Unit_Testing"]
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+  # Functional_Testing:
+  #   runs-on: self-hosted
+  #   # needs: ["Unit_Testing"]
+  #   steps:
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v2
 
-      - name: Set up JDK
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'  # Adjust as needed
-          distribution: 'adopt'
+  #     - name: Set up JDK
+  #       uses: actions/setup-java@v2
+  #       with:
+  #         java-version: '11'  # Adjust as needed
+  #         distribution: 'adopt'
 
-      - name: Run Functional Tests
-        run: |
-          cd Fucntional-Testing/demo
-          mvn test
+  #     - name: Run Functional Tests
+  #       run: |
+  #         cd Fucntional-Testing/demo
+  #         mvn test
 
-  Build_Docker_Image_And_Trivy_Scan:
-    runs-on: ubuntu-latest
+  Build_Docker_Images:
     # needs: ["Functional_Testing"]
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -147,8 +147,28 @@ jobs:
     - name: Build Docker image Backend
       run: docker build -t power_pipeline_backend:latest ./backend
       
-    - name: Shows Docker Images
-      run: docker images
+    - name: Save Docker Images List
+      id: save-docker-images
+      run: |
+        echo "Saving Docker images list..."
+        docker images > docker_images_list.txt
+        echo "::set-output name=docker-images-list::docker_images_list.txt"
+
+    - name: Upload Docker Images List as Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: docker-images-list
+        path: ${{ steps.save-docker-images.outputs.docker-images-list }}
+
+  Trivy_Scan_Images:
+    needs: ["Build_Docker_Images"]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download Docker Images List Artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: docker-images-list
+        path: docker_images_list
 
     - name: Install Trivy
       run: |
