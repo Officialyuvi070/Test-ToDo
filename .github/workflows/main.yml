@@ -149,6 +149,9 @@ jobs:
       
     - name: Shows Docker Images
       run: docker images
+
+    - name: Docker Login
+      run: docker login
       
     - name: Push Docker image (Frontend) to Docker Hub
       run: docker push power_pipeline_frontend:latest
